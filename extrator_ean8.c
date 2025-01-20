@@ -1,4 +1,3 @@
-// extrator_ean8.c
 #include "imagem_pbm.h"
 #include "ean8_utils.h"
 #include <stdio.h>

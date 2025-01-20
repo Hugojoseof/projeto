@@ -1,0 +1,105 @@
+# Projeto EAN-8: Gerador e Extrator de Código de Barras
+
+Este projeto implementa um sistema para geração e extração de códigos de barras no formato **EAN-8** utilizando a linguagem C. O sistema é capaz de:
+
+- **Gerar um código de barras EAN-8** a partir de um identificador válido e salvar em uma imagem no formato PBM.
+- **Extrair o identificador EAN-8** de uma imagem PBM contendo o código de barras.
+
+---
+
+## **Como Funciona**
+
+### Estrutura do Projeto
+O projeto está organizado em arquivos modulares:
+
+1. **imagem_pbm.h / imagem_pbm.c**:
+   - Funções para manipulação de imagens PBM, como criação, salvamento e carregamento de arquivos.
+2. **ean8_utils.h / ean8_utils.c**:
+   - Funções para validação de identificadores EAN-8 e geração de códigos de barras.
+3. **gerador_ean8.c**:
+   - Programa principal para gerar o código de barras a partir de um identificador.
+4. **extrator_ean8.c**:
+   - Programa principal para extrair o identificador EAN-8 de um código de barras.
+
+---
+
+## **Como Compilar**
+Certifique-se de que todos os arquivos `.c` e `.h` estão no mesmo diretório. Use o seguinte comando para compilar:
+
+### Gerador do Código de Barras
+```bash
+gcc -o gerador_ean8 gerador_ean8.c imagem_pbm.c ean8_utils.c
+```
+
+### Extrator do Código de Barras
+```bash
+gcc -o extrator_ean8 extrator_ean8.c imagem_pbm.c ean8_utils.c
+```
+
+---
+
+## **Como Executar**
+
+### Gerar um Código de Barras
+Use o executável `gerador_ean8` com o seguinte comando:
+
+```bash
+./gerador_ean8 <identificador> --largura <largura> --altura <altura> --espessura <espessura> --arquivo <nome_arquivo>
+```
+
+#### Exemplo:
+```bash
+./gerador_ean8 40170725 --largura 200 --altura 100 --espessura 2 --arquivo meu_codigo.pbm
+```
+- **40170725**: Identificador EAN-8 válido.
+- **--largura**: Largura total da imagem (em pixels).
+- **--altura**: Altura total da imagem (em pixels).
+- **--espessura**: Espessura de cada barra (em pixels).
+- **--arquivo**: Nome do arquivo PBM gerado.
+
+A saída será uma imagem PBM contendo o código de barras correspondente ao identificador fornecido.
+
+### Extrair um Código de Barras
+Use o executável `extrator_ean8` com o seguinte comando:
+
+```bash
+./extrator_ean8 <arquivo_pbm>
+```
+
+#### Exemplo:
+```bash
+./extrator_ean8 meu_codigo.pbm
+```
+A saída será o identificador EAN-8 extraído do código de barras.
+
+---
+
+## **Formato PBM**
+O formato PBM (Portable Bitmap) é um formato simples de imagem binária. Um arquivo PBM gerado por este projeto segue o padrão:
+
+```
+P1
+<largura> <altura>
+<dados dos pixels>
+```
+- `P1`: Identifica o formato como PBM.
+- `<largura>` e `<altura>`: Dimensões da imagem.
+- `<dados dos pixels>`: Matriz de pixels representando o código de barras, onde:
+  - `0`: Branco.
+  - `1`: Preto.
+
+---
+
+## **Testes**
+- **Teste 1:** Gere o código de barras para o identificador `40170725` e visualize o arquivo PBM.
+- **Teste 2:** Extraia o identificador de um arquivo PBM gerado anteriormente.
+- **Teste 3:** Experimente diferentes larguras, alturas e espessuras para validar a flexibilidade do sistema.
+
+---
+
+## **Requisitos**
+- **Compilador GCC** (ou outro compatível com C).
+- Sistema operacional compatível com o formato PBM (ou utilitário para conversão de PBM).
+
+
+
